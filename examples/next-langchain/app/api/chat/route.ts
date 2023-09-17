@@ -1,5 +1,5 @@
 import { StreamingTextResponse, LangChainStream, Message } from 'ai';
-import { ChatOpenAI } from 'langchain/chat_models/openai';
+import { ChatOllama } from 'langchain/chat_models/ollama';
 import { AIMessage, HumanMessage } from 'langchain/schema';
 
 export const runtime = 'edge';
@@ -9,8 +9,10 @@ export async function POST(req: Request) {
 
   const { stream, handlers } = LangChainStream();
 
-  const llm = new ChatOpenAI({
-    streaming: true,
+  const llm = new ChatOllama({
+    baseUrl: 'http://localhost:11434',
+    model: 'llama2:7b',
+    temperature: 0.12,
   });
 
   llm
